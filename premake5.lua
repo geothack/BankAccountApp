@@ -1,0 +1,83 @@
+
+workspace "BankApp"
+    configurations {"Debug","Release"}    
+
+    startproject "Game"
+
+project "App"
+    kind "ConsoleApp"
+
+    language "C++"
+    cppdialect "C++latest"
+    targetdir "bin/%{cfg.buildcfg}"
+
+    architecture ("x64")
+
+    includedirs 
+    { 
+        "Source",
+    }
+
+    libdirs 
+    {
+       --"deps/glfw/lib", 
+       --"deps/assimp/lib", 
+       
+    }
+
+    links 
+    {
+      --"Zeus",
+       --"glfw3.dll",
+       --"glfw3.lib",
+    
+
+    }
+
+   files
+    { 
+      "Source/**.h", 
+      "Source/**.cpp"
+    }
+
+    
+
+   filter "configurations:Debug"
+      defines { "DEBUG" }
+      symbols "On"
+      buildoptions { "/MP" }
+      kind "ConsoleApp"
+
+      links 
+      {
+          --"assimp-vc143-mtd.lib",
+          --"assimp-vc143-mtd.dll",
+          --"freetyped.lib",
+          --"box2dd.lib",
+      }
+
+      --postbuildcommands { "{COPY} deps/glfw/lib/glfw3.dll bin/Debug" }
+      --postbuildcommands { "{COPY} Dependencies/Assimp/Library/assimp-vc143-mtd.dll bin/Debug" }
+      --postbuildcommands { "{COPY} deps/openal/lib/OpenAL32.dll bin/Debug" }
+
+   filter "configurations:Release"
+      defines { "NDEBUG" }
+      optimize "On"
+      buildoptions { "/MP" }
+      kind "WindowedApp"
+
+      links 
+      {
+          --"assimp-vc143-mt.lib",
+          --"assimp-vc143-mt.dll",
+          --"freetype.lib",
+          --"rbox2d.lib",
+      }
+
+      --postbuildcommands { "{COPY} libs/sdl3/lib/x64/SDL3.dll bin/Release" }
+      --postbuildcommands { "{COPY} libs/openal/libs/OpenAL32.dll bin/Release" }
+
+
+
+
+
