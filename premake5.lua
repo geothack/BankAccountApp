@@ -16,20 +16,21 @@ project "App"
     includedirs 
     { 
         "Source",
+        "glfw/include",
     }
 
     libdirs 
     {
-       --"deps/glfw/lib", 
+       "glfw/lib", 
        --"deps/assimp/lib", 
        
     }
 
     links 
     {
-      --"Zeus",
-       --"glfw3.dll",
-       --"glfw3.lib",
+      "DearImgui",
+       "glfw3.dll",
+       "glfw3.lib",
     
 
     }
@@ -56,7 +57,7 @@ project "App"
           --"box2dd.lib",
       }
 
-      --postbuildcommands { "{COPY} deps/glfw/lib/glfw3.dll bin/Debug" }
+      postbuildcommands { "{COPY} glfw/lib/glfw3.dll bin/Debug" }
       --postbuildcommands { "{COPY} Dependencies/Assimp/Library/assimp-vc143-mtd.dll bin/Debug" }
       --postbuildcommands { "{COPY} deps/openal/lib/OpenAL32.dll bin/Debug" }
 
@@ -76,6 +77,76 @@ project "App"
 
       --postbuildcommands { "{COPY} libs/sdl3/lib/x64/SDL3.dll bin/Release" }
       --postbuildcommands { "{COPY} libs/openal/libs/OpenAL32.dll bin/Release" }
+
+project "DearImgui"
+    kind "StaticLib"
+
+    language "C++"
+    cppdialect "C++latest"
+    targetdir "bin/%{cfg.buildcfg}"
+
+    architecture ("x64")
+
+    includedirs 
+    { 
+        "glfw/include",
+    }
+
+    libdirs 
+    {
+       "glfw/lib", 
+    }
+
+    links
+    {
+      "glfw3.lib",
+      "glfw3.dll",
+    }
+
+   files
+    { 
+      "imgui-1.92.1/**.h", 
+      "imgui-1.92.1/**.cpp",
+      "imgui-1.92.1/**.txt"
+    }
+
+    
+   filter "configurations:Debug"
+      defines { "DEBUG" }
+      symbols "On"
+      buildoptions { "/MP" }
+
+   filter "configurations:Release"
+      defines { "NDEBUG" }
+      optimize "On"
+      buildoptions { "/MP" }
+
+
+project "Glfw"
+    kind "StaticLib"
+
+    language "C++"
+    cppdialect "C++latest"
+    targetdir "bin/%{cfg.buildcfg}"
+
+    architecture ("x64")
+
+   files
+    { 
+      "glfw/**.h", 
+      "glfw/**.cpp",
+    }
+
+    
+   filter "configurations:Debug"
+      defines { "DEBUG" }
+      symbols "On"
+      buildoptions { "/MP" }
+
+   filter "configurations:Release"
+      defines { "NDEBUG" }
+      optimize "On"
+      buildoptions { "/MP" }
 
 
 
