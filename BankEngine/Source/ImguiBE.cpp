@@ -2,7 +2,24 @@
 #include "Window.h"
 #include <imgui_impl_opengl3_loader.h>
 
-Imgui::Imgui()
+Imgui* Imgui::Get()
+{
+    if (!m_ImGuiBE)
+    {
+        m_ImGuiBE = new Imgui();
+    }
+
+    return m_ImGuiBE;
+}
+
+Imgui::~Imgui()
+{
+    ImGui_ImplOpenGL3_Shutdown();
+    ImGui_ImplGlfw_Shutdown();
+    ImGui::DestroyContext();
+}
+
+void Imgui::Create()
 {
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
@@ -22,14 +39,6 @@ Imgui::Imgui()
 
     ImGui_ImplGlfw_InitForOpenGL(Window::Get()->GetNativeWindow(), true);
     ImGui_ImplOpenGL3_Init("#version 460");
-
-}
-
-Imgui::~Imgui()
-{
-    ImGui_ImplOpenGL3_Shutdown();
-    ImGui_ImplGlfw_Shutdown();
-    ImGui::DestroyContext();
 }
 
 void Imgui::NewFrame()
@@ -102,4 +111,9 @@ void Imgui::RenderTextBox(std::string_view title)
 void Imgui::SameLine() const
 {
     ImGui::SameLine();
+}
+
+void Imgui::Free() 
+{
+    delete m_ImGuiBE;
 }

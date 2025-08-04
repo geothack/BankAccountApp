@@ -1,14 +1,19 @@
 #include "Login.h"
+#include "Source/ImguiBE.h"
 
 Login::Login()
 {
 }
 
-void Login::Update(Imgui& imGui)
+Login::~Login()
 {
-    imGui.RenderTextBox("Username");
-    imGui.RenderTextBox("Password");
-    if (imGui.RenderButton("Exit"))
+}
+
+void Login::Update()
+{
+    GIMGUI->RenderTextBox("Username");
+    GIMGUI->RenderTextBox("Password");
+    if (GIMGUI->RenderButton("Exit"))
     {
         IsActive = false;
     }

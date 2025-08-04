@@ -7,11 +7,15 @@
 #include <memory>
 #include <string_view>
 
+#define GIMGUI Imgui::Get()
+
 class Imgui
 {
 public:
-	Imgui();
+	static Imgui* Get();
 	~Imgui();
+
+	void Create();
 
 	void NewFrame();
 
@@ -33,7 +37,9 @@ public:
 
 	void SameLine() const;
 
+	void Free(); 
+
 private:
-	
+	inline static Imgui* m_ImGuiBE = nullptr;
 };
 

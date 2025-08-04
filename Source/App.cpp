@@ -4,6 +4,8 @@
 #include "Source/Window.h"
 
 #include "Source/States/Login.h"
+#include "Source/States/SetupAccount.h"
+
 
 int main()
 {
@@ -11,9 +13,11 @@ int main()
 
     auto logoTexture = Texture("Resource/Textures/Logo.png");
 
-    auto imGui = Imgui();
+    GIMGUI->Create();
+
 
     auto loginState = Login();
+    auto setupAccountState = SetupAccount();
 
     while (!glfwWindowShouldClose(Window::Get()->GetNativeWindow()))
     {
@@ -22,43 +26,52 @@ int main()
         glClearColor(0.33, 0.33, 0.33, 1.0);
         glClear(GL_COLOR_BUFFER_BIT);
 
-        imGui.NewFrame();
+        GIMGUI->NewFrame();
 
-        imGui.Begin(" ", ImVec2(0, -35), ImVec2(1000, 800));
+        GIMGUI->Begin(" ", ImVec2(0, -35), ImVec2(1000, 800));
 
-        if (imGui.RenderImageButton(" ", logoTexture.GetHandle(), ImVec2(100, 100)))
+        if (GIMGUI->RenderImageButton(" ", logoTexture.GetHandle(), ImVec2(100, 100)))
         {
             loginState.IsActive = false;
         }
-        imGui.RenderText("GRC Online Banking", true);
-        imGui.RenderText("Help & Support");
+        GIMGUI->RenderText("GRC Online Banking", true);
+        GIMGUI->RenderText("Help & Support");
 
-        if (!loginState.IsActive)
+        if (!loginState.IsActive && !setupAccountState.IsActive)
         {
-            if (imGui.RenderButton("Login"))
+            if (GIMGUI->RenderButton("Login"))
             {
                 loginState.IsActive = true;
             }
             
-            imGui.RenderText("Sign Up");
-            imGui.RenderButton("Personal");
-            imGui.RenderButton("Business", true);
-            imGui.RenderButton("Student", true);
+            GIMGUI->RenderText("Sign Up");
+            if (GIMGUI->RenderButton("Personal"))
+            {
+                setupAccountState.IsActive = true;
+            }
+            GIMGUI->RenderButton("Business", true);
+            GIMGUI->RenderButton("Student", true);
 
         }
 
         if (loginState.IsActive)
         {
-            loginState.Update(imGui);
+            loginState.Update();
         }
 
-        imGui.End();
+        if (setupAccountState.IsActive)
+        {
+            setupAccountState.Update();
+        }
 
-        imGui.EndFrame();
+        GIMGUI->End();
+
+        GIMGUI->EndFrame();
 
         Window::Get()->Swap();
     }
 
+    GIMGUI->Free();
     Window::Get()->Free();
 
 }
