@@ -17,6 +17,7 @@ project "App"
     { 
         "Source",
         "glfw/include",
+        "imgui-1.92.1",
     }
 
     libdirs 
@@ -90,6 +91,7 @@ project "DearImgui"
     includedirs 
     { 
         "glfw/include",
+        "imgui-1.92.1",
     }
 
     libdirs 
