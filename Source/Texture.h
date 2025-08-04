@@ -13,6 +13,7 @@ class Texture
 public:
 	Texture() = default;
 	Texture(const std::filesystem::path& path, bool flip = false);
+	~Texture();
 
 	void Attach() const;
 

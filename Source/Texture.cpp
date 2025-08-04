@@ -40,6 +40,11 @@ Texture::Texture(const std::filesystem::path& path, bool flip)
     }
 }
 
+Texture::~Texture()
+{
+    glDeleteTextures(1, &m_Handle);
+}
+
 void Texture::Attach() const
 {
 	glBindTexture(GL_TEXTURE_2D, m_Handle);

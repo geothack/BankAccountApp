@@ -11,8 +11,8 @@ Imgui::Imgui()
     io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
 
     // Setup Dear ImGui style
-    //ImGui::StyleColorsDark();
-    ImGui::StyleColorsLight();
+    ImGui::StyleColorsDark();
+    //ImGui::StyleColorsLight();
 
     ImGuiStyle& style = ImGui::GetStyle();
     //style.ScaleAllSizes(main_scale);  
@@ -30,51 +30,64 @@ Imgui::~Imgui()
     ImGui::DestroyContext();
 }
 
-void Imgui::Render()
+void Imgui::NewFrame()
 {
     ImGui_ImplOpenGL3_NewFrame();
     ImGui_ImplGlfw_NewFrame();
     ImGui::NewFrame();
+}
 
-    ImGui::SetNextWindowPos(ImVec2(0, 0), ImGuiCond_Once);
-    ImGui::SetNextWindowSize(ImVec2(1000, 800), ImGuiCond_Once);
-    static bool active = false;
-    ImGui::Begin("GRC Online Banking",&active);
-
-    if (ImGui::Button("Login"))                           
-    {
-
-    }
-
-    ImGui::Text("Sign Up");
-
-    if (ImGui::Button("Personal"))
-    {
-
-    }
-
-    if (ImGui::Button("Student"))
-    {
-
-    }
-
-    if (ImGui::Button("Business"))
-    {
-
-    }
-
-    
-
-
-    ImGui::End();
-
+void Imgui::EndFrame()
+{
     ImGui::Render();
-    int display_w, display_h;
-    glfwGetFramebufferSize(Window::Get()->GetNativeWindow(), &display_w, &display_h);
-    glViewport(0, 0, display_w, display_h);
     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+}
+
+void Imgui::Begin(std::string_view title, ImVec2 position, ImVec2 size)
+{
+    ImGui::SetNextWindowPos(ImVec2(position), ImGuiCond_Once);
+    ImGui::SetNextWindowSize(ImVec2(size), ImGuiCond_Once);
+    ImGui::Begin(title.data(),nullptr,ImGuiWindowFlags_NoBackground);
+}
+
+void Imgui::End()
+{
+    ImGui::End();
 }
 
 void Imgui::RenderTexture(uint32_t handle, ImVec2 size)
 {
+    ImGui::Image((ImTextureID)handle, size);
+}
+
+bool Imgui::RenderButton(std::string_view buttonText)
+{
+    if (ImGui::Button(buttonText.data()))
+    {
+        return true;
+    }
+    return false;
+}
+
+bool Imgui::RenderImageButton(std::string_view buttonText, uint32_t handle, ImVec2 size)
+{
+    if (ImGui::ImageButton(buttonText.data(),handle,size))
+    {
+        return true;
+    }
+    return false;
+}
+
+void Imgui::RenderText(std::string_view text, bool sameLine)
+{
+    if (sameLine)
+    {
+        SameLine();
+    }
+    ImGui::Text(text.data());
+}
+
+void Imgui::SameLine() const
+{
+    ImGui::SameLine();
 }
