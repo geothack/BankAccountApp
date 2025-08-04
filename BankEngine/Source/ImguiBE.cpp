@@ -1,4 +1,4 @@
-#include "Imgui.h"
+#include "ImguiBE.h"
 #include "Window.h"
 #include <imgui_impl_opengl3_loader.h>
 
@@ -62,8 +62,12 @@ void Imgui::RenderTexture(uint32_t handle, ImVec2 size)
     ImGui::Image((ImTextureID)handle, size);
 }
 
-bool Imgui::RenderButton(std::string_view buttonText)
+bool Imgui::RenderButton(std::string_view buttonText, bool sameLine)
 {
+    if (sameLine)
+    {
+        SameLine();
+    }
     if (ImGui::Button(buttonText.data()))
     {
         return true;

@@ -20,12 +20,12 @@ project "App"
         "imgui-1.92.1",
         "glad/include",
         "stb",
+        "BankEngine",
     }
 
     libdirs 
     {
        "glfw/lib", 
-       --"deps/assimp/lib", 
        
     }
 
@@ -35,7 +35,8 @@ project "App"
        "glfw3.dll",
        "glfw3.lib",
        "Glad",
-       "Stb"
+       "Stb",
+       "BankEngine",
     
 
     }
@@ -201,6 +202,56 @@ project "Stb"
     { 
       "stb/**.h", 
       "stb/**.c",
+    }
+    
+   filter "configurations:Debug"
+      defines { "DEBUG" }
+      symbols "On"
+      buildoptions { "/MP" }
+
+   filter "configurations:Release"
+      defines { "NDEBUG" }
+      optimize "On"
+      buildoptions { "/MP" }
+
+
+      
+project "BankEngine"
+    kind "StaticLib"
+
+    language "C++"
+    cppdialect "C++latest"
+    targetdir "bin/%{cfg.buildcfg}"
+
+    architecture ("x64")
+
+    includedirs 
+    { 
+        "glfw/include",
+        "imgui-1.92.1",
+        "glad/include",
+        "stb",
+        "BankEngine",
+    }
+
+    libdirs 
+    {
+       "glfw/lib", 
+    }
+
+   files
+    { 
+      "BankEngine/**.h", 
+      "BankEngine/**.cpp",
+    }
+
+    links 
+    {
+      "DearImgui",
+       "glfw3.dll",
+       "glfw3.lib",
+       "Glad",
+       "Stb",
     }
     
    filter "configurations:Debug"

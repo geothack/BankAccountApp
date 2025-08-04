@@ -23,7 +23,7 @@ public:
 
 	void RenderTexture(uint32_t handle, ImVec2 size);
 
-	bool RenderButton(std::string_view buttonText);
+	bool RenderButton(std::string_view buttonText, bool sameLine = false);
 
 	bool RenderImageButton(std::string_view buttonText, uint32_t handle, ImVec2 size);
 

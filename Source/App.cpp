@@ -1,41 +1,56 @@
-#include <print>
 
-#include "Imgui.h"
-#include "Texture.h"
-#include "Window.h"
+#include "Source/ImguiBE.h"
+#include "Source/Texture.h"
+#include "Source/Window.h"
+
+#include "Source/States/Login.h"
 
 int main()
 {
-    std::println("Hello World");
-
     Window::Get()->Create("BankingApp", 1000, 800);
 
     auto logoTexture = Texture("Resource/Textures/Logo.png");
 
     auto imGui = Imgui();
 
+    auto loginState = Login();
+
     while (!glfwWindowShouldClose(Window::Get()->GetNativeWindow()))
     {
         Window::Get()->Events();
 
-        glClearColor(0.33,0.33,0.33,1.0);
+        glClearColor(0.33, 0.33, 0.33, 1.0);
         glClear(GL_COLOR_BUFFER_BIT);
 
         imGui.NewFrame();
 
         imGui.Begin(" ", ImVec2(0, -35), ImVec2(1000, 800));
-       
-        imGui.RenderTexture(logoTexture.GetHandle(), ImVec2(100, 100));
-        imGui.RenderText("GRC Online Banking",true);
+
+        if (imGui.RenderImageButton(" ", logoTexture.GetHandle(), ImVec2(100, 100)))
+        {
+            loginState.IsActive = false;
+        }
+        imGui.RenderText("GRC Online Banking", true);
         imGui.RenderText("Help & Support");
 
-        imGui.RenderButton("Login");
-        imGui.RenderTextBox("Username");
-        imGui.RenderTextBox("Password");
-        imGui.RenderText("Sign Up");
-        imGui.RenderButton("Personal");
-        imGui.RenderButton("Business");
-        imGui.RenderButton("Student");
+        if (!loginState.IsActive)
+        {
+            if (imGui.RenderButton("Login"))
+            {
+                loginState.IsActive = true;
+            }
+            
+            imGui.RenderText("Sign Up");
+            imGui.RenderButton("Personal");
+            imGui.RenderButton("Business", true);
+            imGui.RenderButton("Student", true);
+
+        }
+
+        if (loginState.IsActive)
+        {
+            loginState.Update(imGui);
+        }
 
         imGui.End();
 
