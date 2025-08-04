@@ -1,6 +1,7 @@
 #include <print>
 
 #include "Imgui.h"
+#include "Texture.h"
 #include "Window.h"
 
 int main()
@@ -8,6 +9,8 @@ int main()
     std::println("Hello World");
 
     Window::Get()->Create("BankingApp", 1000, 800);
+
+    auto logoTexture = Texture("Resource/Textures/Logo.png");
 
     auto imGui = Imgui();
 

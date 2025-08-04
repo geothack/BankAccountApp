@@ -19,6 +19,7 @@ project "App"
         "glfw/include",
         "imgui-1.92.1",
         "glad/include",
+        "stb",
     }
 
     libdirs 
@@ -34,6 +35,7 @@ project "App"
        "glfw3.dll",
        "glfw3.lib",
        "Glad",
+       "Stb"
     
 
     }
@@ -186,5 +188,28 @@ project "Glad"
 
 
 
+project "Stb"
+    kind "StaticLib"
 
+    language "C++"
+    cppdialect "C++latest"
+    targetdir "bin/%{cfg.buildcfg}"
+
+    architecture ("x64")
+
+   files
+    { 
+      "stb/**.h", 
+      "stb/**.c",
+    }
+    
+   filter "configurations:Debug"
+      defines { "DEBUG" }
+      symbols "On"
+      buildoptions { "/MP" }
+
+   filter "configurations:Release"
+      defines { "NDEBUG" }
+      optimize "On"
+      buildoptions { "/MP" }
 

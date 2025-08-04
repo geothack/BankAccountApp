@@ -74,3 +74,7 @@ void Imgui::Render()
     glViewport(0, 0, display_w, display_h);
     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 }
+
+void Imgui::RenderTexture(uint32_t handle, ImVec2 size)
+{
+}
