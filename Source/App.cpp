@@ -23,4 +23,6 @@ int main()
         Window::Get()->Swap();
     }
 
+    Window::Get()->Free();
+
 }

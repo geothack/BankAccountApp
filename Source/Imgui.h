@@ -8,6 +8,7 @@ class Imgui
 {
 public:
 	Imgui();
+	~Imgui();
 
 	void Render();
 

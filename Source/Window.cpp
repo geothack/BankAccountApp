@@ -51,3 +51,9 @@ void Window::Swap() const
 {
 	glfwSwapBuffers(m_NativeWindow);
 }
+
+void Window::Free()
+{
+	glfwDestroyWindow(m_NativeWindow);
+	glfwTerminate();
+}

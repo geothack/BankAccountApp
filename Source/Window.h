@@ -29,6 +29,8 @@ public:
 
     void Swap() const;
 
+    void Free();
+
     GLFWwindow* GetNativeWindow() { return m_NativeWindow; }
 
 public:

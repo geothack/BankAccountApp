@@ -11,8 +11,8 @@ Imgui::Imgui()
     io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
 
     // Setup Dear ImGui style
-    ImGui::StyleColorsDark();
-    //ImGui::StyleColorsLight();
+    //ImGui::StyleColorsDark();
+    ImGui::StyleColorsLight();
 
     ImGuiStyle& style = ImGui::GetStyle();
     //style.ScaleAllSizes(main_scale);  
@@ -23,14 +23,50 @@ Imgui::Imgui()
 
 }
 
+Imgui::~Imgui()
+{
+    ImGui_ImplOpenGL3_Shutdown();
+    ImGui_ImplGlfw_Shutdown();
+    ImGui::DestroyContext();
+}
+
 void Imgui::Render()
 {
     ImGui_ImplOpenGL3_NewFrame();
     ImGui_ImplGlfw_NewFrame();
     ImGui::NewFrame();
 
-    static bool show = true;
-    ImGui::ShowDemoWindow(&show);
+    ImGui::SetNextWindowPos(ImVec2(0, 0), ImGuiCond_Once);
+    ImGui::SetNextWindowSize(ImVec2(1000, 800), ImGuiCond_Once);
+    static bool active = false;
+    ImGui::Begin("GRC Online Banking",&active);
+
+    if (ImGui::Button("Login"))                           
+    {
+
+    }
+
+    ImGui::Text("Sign Up");
+
+    if (ImGui::Button("Personal"))
+    {
+
+    }
+
+    if (ImGui::Button("Student"))
+    {
+
+    }
+
+    if (ImGui::Button("Business"))
+    {
+
+    }
+
+    
+
+
+    ImGui::End();
 
     ImGui::Render();
     int display_w, display_h;
