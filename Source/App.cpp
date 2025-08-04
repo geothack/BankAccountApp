@@ -23,13 +23,15 @@ int main()
 
         imGui.NewFrame();
 
-        imGui.Begin(" ", ImVec2(0, -20), ImVec2(1000, 800));
+        imGui.Begin(" ", ImVec2(0, -35), ImVec2(1000, 800));
        
         imGui.RenderTexture(logoTexture.GetHandle(), ImVec2(100, 100));
         imGui.RenderText("GRC Online Banking",true);
         imGui.RenderText("Help & Support");
 
         imGui.RenderButton("Login");
+        imGui.RenderTextBox("Username");
+        imGui.RenderTextBox("Password");
         imGui.RenderText("Sign Up");
         imGui.RenderButton("Personal");
         imGui.RenderButton("Business");

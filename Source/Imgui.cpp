@@ -14,6 +14,8 @@ Imgui::Imgui()
     ImGui::StyleColorsDark();
     //ImGui::StyleColorsLight();
 
+    io.Fonts->AddFontFromFileTTF("Resource/Fonts/LEMONMILK-Regular.otf", 25);
+
     ImGuiStyle& style = ImGui::GetStyle();
     //style.ScaleAllSizes(main_scale);  
     //style.FontScaleDpi = main_scale;     
@@ -85,6 +87,12 @@ void Imgui::RenderText(std::string_view text, bool sameLine)
         SameLine();
     }
     ImGui::Text(text.data());
+}
+
+void Imgui::RenderTextBox(std::string_view title)
+{
+    static char buffer[128] = "";
+    ImGui::InputText(title.data(), buffer, IM_ARRAYSIZE(buffer));
 }
 
 void Imgui::SameLine() const

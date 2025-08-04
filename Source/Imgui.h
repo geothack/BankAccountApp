@@ -29,6 +29,8 @@ public:
 
 	void RenderText(std::string_view text, bool sameLine = false);
 
+	void RenderTextBox(std::string_view title);
+
 	void SameLine() const;
 
 private:
