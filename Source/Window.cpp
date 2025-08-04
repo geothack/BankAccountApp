@@ -26,7 +26,13 @@ void Window::Create(std::string_view title, const uint32_t width, const uint32_t
 		throw std::runtime_error("Failed to create glfw window");
 	}
 
-	//glfwMakeContextCurrent(m_NativeWindow);
+	glfwMakeContextCurrent(m_NativeWindow);
+
+	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
+	{
+		throw std::runtime_error("Failed to initialize glad");
+	}
+
 
 	//glfwSetWindowShouldClose(m_NativeWindow, false);
 

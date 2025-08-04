@@ -1,5 +1,6 @@
 #include "Imgui.h"
 #include "Window.h"
+#include <imgui_impl_opengl3_loader.h>
 
 Imgui::Imgui()
 {
@@ -13,7 +14,7 @@ Imgui::Imgui()
     ImGui::StyleColorsDark();
     //ImGui::StyleColorsLight();
 
-    //ImGuiStyle& style = ImGui::GetStyle();
+    ImGuiStyle& style = ImGui::GetStyle();
     //style.ScaleAllSizes(main_scale);  
     //style.FontScaleDpi = main_scale;     
 
@@ -32,8 +33,8 @@ void Imgui::Render()
     ImGui::ShowDemoWindow(&show);
 
     ImGui::Render();
-    //int display_w, display_h;
-    //glfwGetFramebufferSize(window, &display_w, &display_h);
-    //glViewport(0, 0, display_w, display_h);
+    int display_w, display_h;
+    glfwGetFramebufferSize(Window::Get()->GetNativeWindow(), &display_w, &display_h);
+    glViewport(0, 0, display_w, display_h);
     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 }

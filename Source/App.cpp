@@ -15,7 +15,10 @@ int main()
     {
         Window::Get()->Events();
 
-        //imGui.Render();
+        glClearColor(0.33,0.33,0.33,1.0);
+        glClear(GL_COLOR_BUFFER_BIT);
+
+        imGui.Render();
 
         Window::Get()->Swap();
     }

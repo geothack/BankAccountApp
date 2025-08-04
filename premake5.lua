@@ -18,6 +18,7 @@ project "App"
         "Source",
         "glfw/include",
         "imgui-1.92.1",
+        "glad/include",
     }
 
     libdirs 
@@ -32,6 +33,7 @@ project "App"
       "DearImgui",
        "glfw3.dll",
        "glfw3.lib",
+       "Glad",
     
 
     }
@@ -137,6 +139,38 @@ project "Glfw"
     { 
       "glfw/**.h", 
       "glfw/**.cpp",
+    }
+
+    
+   filter "configurations:Debug"
+      defines { "DEBUG" }
+      symbols "On"
+      buildoptions { "/MP" }
+
+   filter "configurations:Release"
+      defines { "NDEBUG" }
+      optimize "On"
+      buildoptions { "/MP" }
+
+
+project "Glad"
+    kind "StaticLib"
+
+    language "C++"
+    cppdialect "C++latest"
+    targetdir "bin/%{cfg.buildcfg}"
+
+    architecture ("x64")
+
+   files
+    { 
+      "glad/**.h", 
+      "glad/**.c",
+    }
+
+    includedirs 
+    { 
+        "glad/include",
     }
 
     
