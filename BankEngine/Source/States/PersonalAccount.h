@@ -3,11 +3,11 @@
 #include "Source/ImguiBE.h"
 #include "Source/States/State.h"
 
-class SetupAccount : public State
+class PersonalAccount : public State
 {
 public:
-	SetupAccount();
-	~SetupAccount() override;
+	PersonalAccount();
+	~PersonalAccount() override;
 
 	void Update() override;
 };

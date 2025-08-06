@@ -102,10 +102,11 @@ void Imgui::RenderText(std::string_view text, bool sameLine)
     ImGui::Text(text.data());
 }
 
-void Imgui::RenderTextBox(std::string_view title)
+const char* Imgui::RenderTextBox(std::string_view title)
 {
     static char buffer[128] = "";
     ImGui::InputText(title.data(), buffer, IM_ARRAYSIZE(buffer));
+    return buffer;
 }
 
 void Imgui::SameLine() const

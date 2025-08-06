@@ -1,14 +1,14 @@
-#include "SetupAccount.h"
+#include "PersonalAccount.h"
 
-SetupAccount::SetupAccount()
+PersonalAccount::PersonalAccount()
 {
 }
 
-SetupAccount::~SetupAccount()
+PersonalAccount::~PersonalAccount()
 {
 }
 
-void SetupAccount::Update()
+void PersonalAccount::Update()
 {
     if (IsActive)
     {
@@ -16,7 +16,11 @@ void SetupAccount::Update()
         GIMGUI->RenderTextBox("Name");
         GIMGUI->RenderTextBox("Email");
         GIMGUI->RenderTextBox("Address");
-        if (GIMGUI->RenderButton("Exit"))
+        if (GIMGUI->RenderButton("Create"))
+        {
+
+        }
+        if (GIMGUI->RenderButton("Exit",true))
         {
             IsActive = false;
         }
