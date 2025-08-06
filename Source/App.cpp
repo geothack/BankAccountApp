@@ -5,6 +5,7 @@
 
 #include "Source/States/Login.h"
 #include "Source/States/SetupAccount.h"
+#include "Source/States/StateCache.h"
 
 
 int main()
@@ -16,8 +17,13 @@ int main()
     GIMGUI->Create();
 
 
-    auto loginState = Login();
-    auto setupAccountState = SetupAccount();
+    auto loginState = Login{};
+    auto setupAccountState = SetupAccount{};
+
+    auto stateCache = StateCache{};
+
+    stateCache.Add(loginState);
+    stateCache.Add(setupAccountState);
 
     while (!glfwWindowShouldClose(Window::Get()->GetNativeWindow()))
     {
@@ -33,6 +39,7 @@ int main()
         if (GIMGUI->RenderImageButton(" ", logoTexture.GetHandle(), ImVec2(100, 100)))
         {
             loginState.IsActive = false;
+            setupAccountState.IsActive = false;
         }
         GIMGUI->RenderText("GRC Online Banking", true);
         GIMGUI->RenderText("Help & Support");
@@ -54,15 +61,9 @@ int main()
 
         }
 
-        if (loginState.IsActive)
-        {
-            loginState.Update();
-        }
-
-        if (setupAccountState.IsActive)
-        {
-            setupAccountState.Update();
-        }
+      
+        stateCache.Update();
+        
 
         GIMGUI->End();
 

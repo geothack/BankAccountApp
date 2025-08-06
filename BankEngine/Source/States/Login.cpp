@@ -11,10 +11,13 @@ Login::~Login()
 
 void Login::Update()
 {
-    GIMGUI->RenderTextBox("Username");
-    GIMGUI->RenderTextBox("Password");
-    if (GIMGUI->RenderButton("Exit"))
+    if (IsActive)
     {
-        IsActive = false;
+        GIMGUI->RenderTextBox("Username");
+        GIMGUI->RenderTextBox("Password");
+        if (GIMGUI->RenderButton("Exit"))
+        {
+            IsActive = false;
+        }
     }
 }
